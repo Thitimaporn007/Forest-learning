@@ -364,3 +364,46 @@ h1 {
     font-size: 0.9rem;
   }
 }
+
+
+.drop-slot.hover {
+  border: 2px dashed #4CAF50;
+  background-color: #f0fff4;
+}
+
+.drop-slot.correct {
+  background-color: #d4edda;
+  border: 2px solid #28a745;
+}
+
+.drop-slot.wrong {
+  background-color: #f8d7da;
+  border: 2px solid #dc3545;
+}
+
+.drag-item.dragging {
+  opacity: 0.7;
+  transform: scale(1.05);
+}
+
+.feedback {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: white;
+  z-index: 2000;
+  opacity: 0.9;
+}
+
+.correct-msg {
+  background-color: #28a745;
+}
+
+.wrong-msg {
+  background-color: #dc3545;
+}
