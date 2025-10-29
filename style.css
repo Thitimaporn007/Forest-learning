@@ -1,53 +1,66 @@
 /* =========================================
-   1. Global Styles (สไตล์ส่วนกลาง)
+   0. Reset & Base Setup
 ========================================= */
-body {
-  font-family: 'Sarabun', sans-serif;
-  background-color: #f0f9f5; /* สีพื้นหลังจากชุดหลังสุด */
-  color: #333;
+* {
   margin: 0;
-  padding: 0; /* เอา padding ออกจาก body โดยตรง */
-  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Sarabun', sans-serif;
+  background-color: #f0f9f5;
+  color: #333;
+  text-align: center;
+  margin: 0;
+}
+
+/* =========================================
+   1. Global Headings
+========================================= */
 h1 {
   text-align: center;
-  color: #2e7d32; /* สีหัวข้อจากชุดหลังสุด */
+  color: #2e7d32;
   margin-bottom: 30px;
+  font-size: 2rem;
 }
 
 /* =========================================
    2. Menu Page (หน้าแรก index.html)
 ========================================= */
-.menu-page {
+body.menu-page {
+  background: linear-gradient(to bottom right, #e8f5e9, #f1f8e9);
+  color: #2e7d32;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
+  align-items: center;
   min-height: 100vh;
   padding-top: 50px;
+  overflow-x: hidden;
 }
 
 .menu-container {
   display: flex;
-  gap: 40px;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 40px;
+  max-width: 90%;
   margin-bottom: 80px;
 }
 
 .menu-card {
-  width: 280px;
-  height: 180px;
   background: white;
   border-radius: 16px;
+  width: 280px;
+  height: 180px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .menu-card:hover {
@@ -65,8 +78,8 @@ h1 {
   margin-top: 10px;
 }
 
-/* วงกลมใหญ่ในหน้าแรก */
 .menu-circle {
+  margin-top: 25px;
   width: 130px;
   height: 130px;
   background: #28a745;
@@ -79,7 +92,7 @@ h1 {
   font-size: 1.1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   cursor: pointer;
-  transition: transform 0.3s, background 0.3s;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .menu-circle:hover {
@@ -95,7 +108,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  padding: 20px; /* ย้าย padding มาไว้ใน container */
+  padding: 20px;
 }
 
 .card {
@@ -105,6 +118,7 @@ h1 {
   cursor: pointer;
   background-color: transparent;
   border: none;
+  position: relative;
 }
 
 .front,
@@ -115,9 +129,8 @@ h1 {
   backface-visibility: hidden;
   transition: transform 0.6s ease;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   padding: 20px;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,7 +169,6 @@ h1 {
 
 /* =========================================
    4. Matching Game Page (หน้าเกมจับคู่)
-   (รวมสไตล์จาก 2 ชุดที่ซ้ำกัน)
 ========================================= */
 .matching-game-container {
   display: flex;
@@ -187,14 +199,15 @@ h1 {
   font-size: 1.1rem;
   color: #333;
   cursor: grab;
-  transition: background-color 0.3s, opacity 0.3s;
+  transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .drag-item:active,
-.drag-item.dragging { /* เพิ่ม .dragging จากชุดที่ซ้ำ */
+.drag-item.dragging {
   cursor: grabbing;
-  opacity: 0.6;
+  opacity: 0.7;
+  transform: scale(1.05);
 }
 
 .drag-item.matched {
@@ -207,7 +220,7 @@ h1 {
   background-color: #f0f0f0;
   border: 2px dashed #cccccc;
   border-radius: 10px;
-  height: 90px; /* ยึดความสูงจากชุดแรก */
+  height: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,25 +234,26 @@ h1 {
   text-align: center;
 }
 
-/* สถานะการวาง */
+/* Drop States */
 .drop-slot.hover {
-  background-color: #e0e0e0;
-  border-color: #888;
+  border: 2px dashed #4CAF50;
+  background-color: #f0fff4;
 }
 
 .drop-slot.correct {
-  background-color: #c8e6c9;
+  background-color: #d4edda;
   border: 2px solid #28a745;
+  transition: 0.3s;
 }
 
 .drop-slot.wrong {
-  background-color: #ffcdd2;
-  border-color: #d32f2f;
+  background-color: #f8d7da;
+  border: 2px solid #dc3545;
+  transition: 0.3s;
 }
 
 /* =========================================
-   5. Circle Button (ปุ่มกลับหน้าแรกแบบลอย)
-   (ยึดชุดนี้เป็นหลัก และลบชุดที่ซ้ำซ้อนทิ้ง)
+   5. Floating Circle Button (ปุ่มกลับหน้าแรก)
 ========================================= */
 .circle-button {
   position: fixed;
@@ -253,12 +267,12 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   font-size: 0.8rem;
   padding: 5px;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
 
 .circle-button a {
@@ -270,82 +284,38 @@ h1 {
   background-color: #3a5a40;
 }
 
-/* รีเซ็ตพื้นฐาน */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* พื้นหลังและโครงหน้า */
-body.menu-page {
-  font-family: "Sarabun", sans-serif;
-  background: linear-gradient(to bottom right, #e8f5e9, #f1f8e9);
-  color: #2e7d32;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;   /* ทำให้สูงเท่าหน้าจอ */
-  overflow: hidden; /* ป้องกันการเลื่อน */
-}
-
-/* หัวข้อหลัก */
-h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-/* โครงบัตร */
-.menu-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  max-width: 90%;
-}
-
-/* บัตรกิจกรรม */
-.menu-card {
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 15px;
-  width: 200px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.menu-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-/* ปุ่มวงกลม */
-.menu-circle {
-  margin-top: 25px;
-  width: 120px;
-  height: 120px;
-  background-color: #81c784;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+/* =========================================
+   6. Feedback Messages
+========================================= */
+.feedback {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.3rem;
   font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  padding: 10px 18px;
+  border-radius: 10px;
+  color: white;
+  z-index: 3000;
+  opacity: 0.95;
+  pointer-events: none;
 }
 
-.menu-circle:hover {
-  background-color: #388e3c;
+.correct-msg {
+  background-color: #28a745;
 }
 
-/* ปรับให้เหมาะกับหน้าจอเล็ก (มือถือแนวตั้ง) */
+.wrong-msg {
+  background-color: #dc3545;
+}
+
+/* =========================================
+   7. Responsive Design
+========================================= */
 @media (max-width: 768px) {
   body.menu-page {
-    height: 100vh;
+    padding-top: 30px;
     overflow: hidden;
   }
 
@@ -363,47 +333,14 @@ h1 {
     height: 100px;
     font-size: 0.9rem;
   }
-}
 
+  .matching-game-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.drop-slot.hover {
-  border: 2px dashed #4CAF50;
-  background-color: #f0fff4;
-}
-
-.drop-slot.correct {
-  background-color: #d4edda;
-  border: 2px solid #28a745;
-}
-
-.drop-slot.wrong {
-  background-color: #f8d7da;
-  border: 2px solid #dc3545;
-}
-
-.drag-item.dragging {
-  opacity: 0.7;
-  transform: scale(1.05);
-}
-
-.feedback {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.4rem;
-  font-weight: bold;
-  padding: 12px 20px;
-  border-radius: 12px;
-  color: white;
-  z-index: 2000;
-  opacity: 0.9;
-}
-
-.correct-msg {
-  background-color: #28a745;
-}
-
-.wrong-msg {
-  background-color: #dc3545;
+  .drag-container,
+  .drop-container {
+    width: 90%;
+  }
 }
